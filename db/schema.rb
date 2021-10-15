@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 2021_10_14_134547) do
     t.string "content"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.text "status"
+    t.string "status"
   end
 
 end
