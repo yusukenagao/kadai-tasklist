@@ -1,5 +1,13 @@
 Rails.application.routes.draw do
+  get 'users/index'
+  get 'users/show'
+  get 'users/new'
+  get 'users/create'
     root to: 'tasks#index'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   resources :tasks
+  
+  get 'signup', to: 'users#new'
+  resources :users, only: [:index, :show, :create]
+  
 end
