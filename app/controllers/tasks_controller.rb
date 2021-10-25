@@ -1,6 +1,14 @@
 class TasksController < ApplicationController
+    before_action :require_user_logged_in #追加した部分
+    before_action :correct_user, only: [:destroy] #追加した部分
+    
     def index
-        @tasks = Task.all
+      @tasks = Task.all
+      
+        if logged_in?
+            @task = current_user.tasks.build  # form_with 用
+            @pagy, @tasks = pagy(current_user.tasks.order(id: :desc))
+        end
     end
     
     def show
@@ -12,7 +20,7 @@ class TasksController < ApplicationController
     end
     
     def create
-        @tasks = Task.new(tasks_params)
+        @tasks = current_user.tasks.build(tasks_params)    #変更した箇所：correct_user追加　taskをtasksに @tasksをtaskに
 
         if @tasks.save
             flash[:success] = 'Task が正常に投稿されました'
@@ -56,4 +64,10 @@ class TasksController < ApplicationController
         params.require(:task).permit(:status, :content)
     end
     
+    def correct_user
+    @tasks = current_user.tasks.find_by(id: params[:id])
+        unless @tasks
+          redirect_to root_url
+        end
+    end 
 end

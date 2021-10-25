@@ -1,7 +1,9 @@
 class ApplicationController < ActionController::Base
     
-    include SessionsHelper　#追記した部分
+    include SessionsHelper #追記した部分
+    include Pagy::Backend #追記した部分
     
+
     
   private
 

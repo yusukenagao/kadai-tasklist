@@ -17,4 +17,6 @@ Rails.application.routes.draw do
   get 'signup', to: 'users#new'
   resources :users, only: [:create] #:index, :show,
   
+ # resources :tasks, only: [:create, :destroy] #追記した部分
+  
 end
