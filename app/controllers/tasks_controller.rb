@@ -1,13 +1,11 @@
 class TasksController < ApplicationController
     before_action :require_user_logged_in #追加した部分
-    before_action :correct_user, only: [:destroy] #追加した部分
+    before_action :correct_user, only: [:show, :edit, :update, :destroy] #追加した部分
     
     def index
-      @tasks = Task.all
-      
+#      @tasks = Task.all
         if logged_in?
-            @task = current_user.tasks.build  # form_with 用
-            @pagy, @tasks = pagy(current_user.tasks.order(id: :desc))
+            @tasks = current_user.tasks.all  # form_with 用
         end
     end
     
